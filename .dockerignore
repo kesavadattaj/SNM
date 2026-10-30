@@ -1,0 +1,42 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Git
+.git/
+.gitignore
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Environment files (use docker-compose env instead)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Database files (for SQLite version)
+*.db
+
+# Uploaded files (mounted as volume)
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Documentation
+*.md
+README*
+
+# Docker files
+Dockerfile
+docker-compose*.yml
+.dockerignore
