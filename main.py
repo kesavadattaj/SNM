@@ -920,9 +920,12 @@ if __name__ == '__main__':
     # Initialize database before starting the app
     if init_database():
         print("Starting Flask application...")
-        print("Access the app at: http://127.0.0.1:5000")
+        # Use PORT env variable for deployment platforms, default to 5000
+        port = int(os.getenv('PORT', 5000))
+        debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+        print(f"Access the app at: http://0.0.0.0:{port}")
         print("-"*50)
-        app.run(debug=True, host='0.0.0.0',port=5000)
+        app.run(debug=debug_mode, host='0.0.0.0', port=port)
     else:
         print("\n" + "!"*50)
         print("Application could not start due to database errors.")
