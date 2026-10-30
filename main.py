@@ -919,7 +919,7 @@ if __name__ == '__main__':
         print("Starting Flask application...")
         print("Access the app at: http://127.0.0.1:5000")
         print("-"*50)
-        app.run(debug=True, port=5000)
+        app.run(debug=True, host='0.0.0.0',port=5000)
     else:
         print("\n" + "!"*50)
         print("Application could not start due to database errors.")
