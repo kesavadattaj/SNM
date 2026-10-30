@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} My Files - SNM {% endblock %}
+
+{% block content %}
+        <div class="container">
+            <div class="files-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2>📁 My Files</h2>
+                    <a href="{{url_for('upload_file')}}" class="btn btn-primary" style="width: auto;">📤 Upload File</a>
+                </div>
+
+                {% if files %}
+                <div class="files-grid">
+                {% for file in files %}
+                    <div class="file-card">
+                        <div class="file-icon">📄</div>
+                        <h4>{{file.filename}}</h4>
+                        {% if file.note_id %}
+                        <p style="color: #667eea; font-size: 12px; margin: 5px 0;">
+                            📎 Linked to: <a href="{{url_for('view_note',note_id=file.note_id)}}">{{file.note_title}}</a>
+                        </p>
+                        {% endif %}
+                        <small style="color: #999;">Uploaded: {{file.created_at}}</small>
+                        <div class="file-actions">
+                            <a href="{{url_for('view_file',file_id=file.id)}}" class="btn btn-secondary" style="padding: 8px 12px; font-size: 14px;">View</a>
+                            <a href="{{url_for('download_file',file_id=file.id)}}" class="btn btn-primary" style="padding: 8px 12px; font-size: 14px;">Download</a>
+                            <a href="{{url_for('delete_file',file_id=file.id)}}" class="btn btn-danger" style="padding: 8px 12px; font-size: 14px;" onclick="return confirm('Are you sure?')">Delete</a>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <p style="text-align: center; color: #666; padding: 40px;">
+                        No files uploaded yet. <a href="{{ url_for('upload_file') }}">Upload your first file!</a>
+                    </p>
+            {% endif %}
+                </div>
+            </div>
+        </div>
+ {% endblock %}

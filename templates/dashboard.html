@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard - SNM {% endblock %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>👋 Hello, {{session.get('user_name')}}!</h1>
+                <p>Welcome to your Simple Notes Management dashboard</p>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>📋</h3>
+                    <p class="stat-number">{{notes_count}}</p>
+                    <p>Total Notes</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📁</h3>
+                    <p class="stat-number">{{files_count}}</p>
+                    <p>Total Files</p>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <a href="{{url_for('add_note')}}" class="btn btn-primary" style="width: auto;">+ Add New Note</a>
+                <a href="{{url_for('upload_file')}}" class="btn btn-secondary">📤 Upload File</a>
+                <a href="{{url_for('search')}}" class="btn btn-secondary">🔍 Search Notes</a>
+            </div>
+            
+            <div class="notes-container">
+                <h2>Recent Notes</h2>
+                {% if notes %}
+                <div class="notes-grid">
+                    {% for note in notes %}
+                    <div class="note-card">
+                        <h4>{{note.title}}</h4>
+                        <p>{{note.description}}</p>
+                        <p style="color: #667eea; font-size: 12px; margin: 5px 0;">📎 {{note.files_count}} file(s) attached</p>
+                        <small style="color: #999;">Created: {{note.created_at}}</small>
+                        <div class="note-actions">
+                            <a href="{{url_for('view_note',note_id=note.id)}}" class="btn btn-secondary" style="padding: 8px 16px;">View</a>
+                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                {% else %}
+                 <p style="text-align: center; color: #666; padding: 40px;">
+                No notes yet. <a href="{{ url_for('add_note') }}">Create your first note!</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} View Note - SNM {% endblock %}
+
+{% block content %}
+        <div class="container">
+            <div class="card" style="max-width: 800px;">
+                <h2>{{note.title}}</h2>
+                <div style="margin-bottom: 20px; color: #666;">
+                    <small>Created: {{note.created_at}} | Last Updated: {{note.updated_at}}</small>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="white-space: pre-wrap; line-height: 1.8;">{{note.description}}</p>
+                </div>
+                
+                <!-- Attached Files Section -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 15px;">📎 Attached Files</h3>
+                    {% if attached_files %}
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        {% for file in attached_files %}
+                        <div style="background: #e9ecef; padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+                            <span>📄 {{file.filename}}</span>
+                            <a href="{{url_for('view_file',file_id=file.id)}}" style="color: #667eea;">View</a>
+                            <a href="{{url_for('download_file',file_id=file.id)}}" style="color: #28a745;">Download</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p style="color: #666;">No files attached to this note.</p>
+                    {% endif %}
+                    <a href="{{url_for('upload_file')}}" class="btn btn-secondary" style="margin-top: 15px; width: auto; padding: 8px 16px;">+ Attach File</a>
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <a href="{{url_for('edit_note',note_id=note.id)}}" class="btn btn-primary" style="width: auto;">Edit Note</a>
+
+                    <a href="{{url_for('delete_note',note_id=note.id)}}" class="btn btn-danger" style="width: auto;" onclick="return confirm('Are you sure?')">Delete Note</a>
+
+                    <a href="{{url_for('notes')}}" class="btn btn-secondary" style="width: auto;">← Back to Notes</a>
+                </div>
+            </div>
+        </div>
+{% endblock %}

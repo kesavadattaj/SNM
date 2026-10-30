@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload File - SNM {% endblock %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="card" style="max-width: 500px;">
+                <h2>📤 Upload File</h2>
+                <form method="POST" action="{{url_for('upload_file')}}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">Select File</label>
+                        <input type="file" id="file" name="file" required style="padding: 10px;" accept=".pdf,.txt,.doc,.docx,.png,.jpg,.jpeg">
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Allowed: PDF, TXT, DOC, DOCX, PNG, JPG, JPEG (Max: 5MB)
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="note_id">Link to Note (Optional)</label>
+                        <select id="note_id" name="note_id">
+                            <option value="">-- Select Note to Link --</option>
+                            {% if notes %}
+                            {% for note in notes %}
+                            <option value="{{note.id}}">{{note.title}}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Attach this file to an existing note
+                        </small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload File</button>
+                </form>
+                <p class="text-center">
+                    <a href="{{url_for('files')}}">← Back to Files</a>
+                </p>
+            </div>
+        </div>
+{% endblock %}

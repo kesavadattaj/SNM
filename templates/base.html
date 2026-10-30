@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} SNM - Simple Notes Management {% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="{{url_for('home')}}" class="logo">📝 SNM</a>
+        <div class="nav-links">
+            {% if not session.get('user_id') %}
+            <!-- Links for logged out users -->
+            <a href="{{url_for('login')}}">Login</a>
+            <a href="{{url_for('register')}}">Register</a>
+
+            {% else %}
+
+            <a href="{{url_for('dashboard')}}">Dashboard</a>
+            <a href="{{url_for('notes')}}">My Notes</a>
+            <a href="{{url_for('files')}}">My Files</a>
+            <a href="{{url_for('logout')}}">Logout</a>
+
+           {% endif %}
+        </div>
+    </nav>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category,message in messages %}
+        <div class="flash {{category}}">{{message}}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    
+    
+    <!-- Main Content Goes Here -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 SNM - Simple Notes Management. All rights reserved.</p>
+    </footer>
+</body>
+</html>
