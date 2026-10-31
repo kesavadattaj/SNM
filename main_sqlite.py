@@ -12,7 +12,8 @@ from functools import wraps
 from werkzeug.utils import secure_filename
 import re
 
-load_dotenv()
+env_path  = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(env_path)
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -917,7 +918,7 @@ if __name__ == '__main__':
         debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
         print(f"Access the app at: http://0.0.0.0:{port}")
         print("-" * 50)
-        app.run(debug=debug_mode, host='0.0.0.0', port=port)
+        # app.run(debug=debug_mode, host='0.0.0.0', port=port)
     else:
         print("\n" + "!" * 50)
         print("Application could not start due to database errors.")
