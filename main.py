@@ -29,10 +29,6 @@ DB_CONFIG = {
     "user":os.getenv("DB_USER"),
     "password":os.getenv("DB_PASSWORD"),
     "database":os.getenv("DB_NAME"),
-    "ssl_disabled": False,
-    "ssl_ca": os.path.join(os.path.dirname(__file__), 'ca.pem'),
-    "ssl_verify_cert": True,
-    "ssl_verify_identity": True
 }
 CA_PATH = os.path.join(os.path.dirname(__file__), 'ca.pem')
 EMAIL_CONFIG = {
