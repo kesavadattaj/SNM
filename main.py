@@ -44,11 +44,20 @@ EMAIL_CONFIG = {
 def check_database_exists():
     """Check if database exists, create if not"""
     try:
-        conn = connect(
-            host=DB_CONFIG['host'],
-            user=DB_CONFIG['user'],
-            password=DB_CONFIG['password']
-        )
+        # Connect without database to check/create it
+        conn_config = {
+            "host": DB_CONFIG['host'],
+            "port": DB_CONFIG['port'],
+            "user": DB_CONFIG['user'],
+            "password": DB_CONFIG['password']
+        }
+        # Add SSL settings if present
+        if DB_CONFIG.get('ssl_disabled') is False:
+            conn_config['ssl_ca'] = DB_CONFIG.get('ssl_ca')
+            conn_config['ssl_verify_cert'] = DB_CONFIG.get('ssl_verify_cert')
+            conn_config['ssl_verify_identity'] = DB_CONFIG.get('ssl_verify_identity')
+        
+        conn = connect(**conn_config)
         cursor = conn.cursor()
         
         # Create database if not exists
