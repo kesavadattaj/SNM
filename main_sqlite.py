@@ -26,7 +26,7 @@ serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 salt = os.getenv('SALT_KEY')
 
 # SQLite Database Configuration
-DATABASE = 'snm.db'
+DATABASE = os.path.join(os.path.dirname(__file__), 'snm.db')
 
 EMAIL_CONFIG = {
     'smtp_server': 'smtp.gmail.com',
