@@ -345,7 +345,7 @@ def verify_otp():
             cursor.execute("SELECT email from users where email=%s and otp=%s",(email,otp))
             user = cursor.fetchone()
             if user:
-                cursor.execute("UPDATE USERS SET is_active = 1, otp=NULL where email=%s",(email,))
+                cursor.execute("UPDATE users SET is_active = 1, otp=NULL where email=%s",(email,))
                 session.pop('pending_email')
                 conn.commit()
                 cursor.close()
@@ -373,7 +373,7 @@ def resend_otp():
         cursor = conn.cursor(dictionary=True)
 
         otp = generate_otp()
-        cursor.execute("UPDATE USERS SET otp=%s where email=%s",(otp,email))
+        cursor.execute("UPDATE users SET otp=%s where email=%s",(otp,email))
         conn.commit()
 
         email_body = f"""
